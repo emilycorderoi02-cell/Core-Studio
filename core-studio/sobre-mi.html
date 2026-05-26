@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sobre mí — CORE Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --dark: #111110;
+      --mid: #1e1d1b;
+      --warm: #c8a96e;
+      --text-muted: #7a7570;
+      --border: rgba(200,169,110,0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--dark); color: var(--cream); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 3rem;
+      background: rgba(17,17,16,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; letter-spacing: 0.25em; color: var(--warm); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--cream); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--warm); }
+    .hamburger { display: none; }
+
+    .page-wrap {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    /* LEFT — foto */
+    .about-img-side {
+      position: sticky; top: 80px;
+      height: calc(100vh - 80px);
+      overflow: hidden;
+    }
+    .about-img-side img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: sepia(8%) brightness(0.88);
+    }
+    .about-img-side::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 70%, var(--dark));
+    }
+
+    /* RIGHT — texto */
+    .about-text-side {
+      padding: 6rem 5rem 6rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--warm); margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
+    }
+    .about-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 300; line-height: 1.05;
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.35s ease forwards;
+    }
+    .about-title em { font-style: italic; color: var(--warm); }
+
+    .about-divider {
+      width: 48px; height: 1px;
+      background: var(--warm); margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp 0.6s 0.5s ease forwards;
+    }
+
+    .about-body {
+      opacity: 0; animation: fadeUp 0.8s 0.6s ease forwards;
+    }
+    .about-body p {
+      font-size: 1rem; line-height: 1.95; color: #c0b8ae;
+      margin-bottom: 1.4rem;
+    }
+
+    .about-tags {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin-top: 2.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.8s ease forwards;
+    }
+    .about-tag {
+      padding: 0.4rem 1.1rem;
+      border: 1px solid var(--border);
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--warm);
+    }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 3rem;
+      text-decoration: none; color: var(--text-muted);
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      transition: color 0.3s;
+      opacity: 0; animation: fadeUp 0.8s 1s ease forwards;
+    }
+    .back-link:hover { color: var(--warm); }
+    .back-link::before { content: '←'; font-size: 1rem; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; flex-direction: column; gap: 0; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(17,17,16,0.98); justify-content: center; align-items: center; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.2rem; padding: 1rem 0; }
+      .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; z-index: 101; background: none; border: none; padding: 4px; }
+      .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--cream); transition: all 0.3s; }
+      .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+      .hamburger.open span:nth-child(2) { opacity: 0; }
+      .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+      .page-wrap { grid-template-columns: 1fr; }
+      .about-img-side {
+        position: relative; top: auto;
+        height: 60vw; min-height: 280px;
+      }
+      .about-img-side::after { background: linear-gradient(to bottom, transparent 60%, var(--dark)); }
+      .about-text-side { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">CORE studio</a>
+  <button class="hamburger" id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#proyectos">Proyectos</a></li>
+    <li><a href="sobre-mi.html" class="active">Sobre mí</a></li>
+    <li><a href="index.html#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- FOTO -->
+  <div class="about-img-side">
+    <img
+      src="sobre-mi/foto.jpg"
+      alt="Emy — Diseñadora de Productos"
+      onerror="this.src='https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&q=80'"
+    />
+  </div>
+
+  <!-- TEXTO -->
+  <div class="about-text-side">
+    <p class="section-label">Diseñadora de productos</p>
+    <h1 class="about-title">Emy<br/><em>Cordero</em></h1>
+    <div class="about-divider"></div>
+    <div class="about-body">
+      <p>Soy Emy, diseñadora de productos y creadora de CORE studio, una marca enfocada en el diseño y fabricación de mobiliario, iluminación y objetos funcionales con identidad propia.</p>
+      <p>Mi trabajo combina creatividad, estrategia y desarrollo técnico para transformar ideas en piezas funcionales, estéticas y bien ejecutadas.</p>
+      <p>Me apasiona explorar materiales, detalles y acabados, cuidando cada etapa del proceso, desde el modelado 3D hasta la fabricación. Busco crear diseños que conecten con las personas, aporten personalidad a los espacios y reflejen un equilibrio entre funcionalidad, innovación y sensibilidad estética.</p>
+    </div>
+    <div class="about-tags">
+      <span class="about-tag">Diseño de producto</span>
+      <span class="about-tag">Mobiliario</span>
+      <span class="about-tag">Iluminación</span>
+      <span class="about-tag">Modelado 3D</span>
+      <span class="about-tag">Fabricación</span>
+    </div>
+    <a class="back-link" href="index.html">Volver al portafolio</a>
+  </div>
+
+</div>
+
+
+<script>
+  const btn = document.getElementById('hamburger');
+  const links = document.getElementById('navLinks');
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      btn.classList.remove('open');
+      links.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
